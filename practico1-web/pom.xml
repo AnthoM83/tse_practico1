@@ -52,6 +52,12 @@
             <artifactId>jakarta.persistence-api</artifactId>
             <scope>provided</scope>
         </dependency>
+        
+        <dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+    <version>1.2</version>
+</dependency>
 
         <!-- Dependency on the EJB module so we can use it's services if needed -->
         <dependency>

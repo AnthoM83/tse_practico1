@@ -37,10 +37,10 @@ public class SingletonGestorProcesosParticipativos implements SingletonGestorPro
     	p2.setFechaFin(LocalDate.parse("2021-12-15"));
     	ProcesoParticipativo p3 = new ProcesoParticipativo();
     	p3.setNombre("¿Qué Reglamento del Servicio de Radioaficionados queremos?");
-    	p2.setId("PP46891");
-    	p2.setEstado(EstadoProceso.FINALIZADO);
-    	p2.setFechaInicio(LocalDate.parse("2021-08-23"));
-    	p2.setFechaFin(LocalDate.parse("2021-12-13"));
+    	p3.setId("PP46891");
+    	p3.setEstado(EstadoProceso.FINALIZADO);
+    	p3.setFechaInicio(LocalDate.parse("2021-08-23"));
+    	p3.setFechaFin(LocalDate.parse("2021-12-13"));
     	procesosParticipativos.put(p1.getNombre(), p1);
     	procesosParticipativos.put(p2.getNombre(), p2);
     	procesosParticipativos.put(p3.getNombre(), p3);

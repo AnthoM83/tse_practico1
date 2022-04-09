@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 
 import classes.EstadoProceso;
 import classes.ProcesoParticipativo;
+import exceptions.ExistingEntityException;
 import persistance.SingletonGestorProcesosParticipativosLocal;
 
 @Stateless
@@ -17,12 +18,14 @@ public class EJBGestorProcesosParticipativos implements EJBGestorProcesosPartici
 
     public EJBGestorProcesosParticipativos() {}
     
-    public void addProcesoParticipativo(ProcesoParticipativo procesoParticipativo) {
+    public void addProcesoParticipativo(ProcesoParticipativo procesoParticipativo) throws ExistingEntityException {
     	procesoParticipativo.setEstado(EstadoProceso.EN_ESPERA);
-    	procesoParticipativo.setFechaFin(null);
     	Integer randomNum = ThreadLocalRandom.current().nextInt(10000, 99999);
     	procesoParticipativo.setId("PP" + randomNum.toString());
-    	singletonGestorDeProcesosParticipativos.addProcesoParticipativo(procesoParticipativo);
+    	if (singletonGestorDeProcesosParticipativos.getProcesoParticipativo(procesoParticipativo.getNombre()) == null)
+    		singletonGestorDeProcesosParticipativos.addProcesoParticipativo(procesoParticipativo);
+    	else
+    		throw new ExistingEntityException("Ya existe un proceso participativo con ese nombre.");
     }
     
     public ProcesoParticipativo getProcesoParticipativo(String nombre) {
