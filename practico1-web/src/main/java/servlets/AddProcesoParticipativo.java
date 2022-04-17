@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import classes.ProcesoParticipativo;
+import datatypes.dtProcesoParticipativo;
 import exceptions.ExistingEntityException;
 
 @WebServlet("/AddProcesoParticipativo")
 public class AddProcesoParticipativo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
-	beans.EJBGestorProcesosParticipativosRemote gestorDeProcesosParticipativos;
+	beans.EJBGestorProcesosParticipativosLocal gestorDeProcesosParticipativos;
 	
     public AddProcesoParticipativo() {
         super();
@@ -36,19 +36,20 @@ public class AddProcesoParticipativo extends HttpServlet {
 		String name = request.getParameter("name");
 		String strFechaInicio = request.getParameter("fechaInicio");
 		String strFechaFin = request.getParameter("fechaFin");
-		ProcesoParticipativo proceso = new ProcesoParticipativo();
+		dtProcesoParticipativo proceso = new dtProcesoParticipativo();
 		proceso.setNombre(name);
 		proceso.setFechaInicio(LocalDate.parse(strFechaInicio));
 		proceso.setFechaFin(LocalDate.parse(strFechaFin));
 		try {
 			gestorDeProcesosParticipativos.addProcesoParticipativo(proceso);
-			response.sendRedirect("Index.jsp");
+			request.setAttribute("msg", "¡Proceso participativo agregado con éxito!");
+			RequestDispatcher rd = request.getRequestDispatcher("/AltaProcesoParticipativo.jsp");
+			rd.forward(request, response);
 		} catch (ExistingEntityException e) {
-			request.setAttribute("err", e.getMessage());
+			request.setAttribute("msg", e.getMessage());
 			RequestDispatcher rd = request.getRequestDispatcher("/AltaProcesoParticipativo.jsp");
 			rd.forward(request, response);
 		}
-
 
 	}
 

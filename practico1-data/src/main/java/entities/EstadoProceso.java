@@ -1,4 +1,4 @@
-package classes;
+package entities;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

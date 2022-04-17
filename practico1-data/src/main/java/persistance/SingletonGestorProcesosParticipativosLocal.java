@@ -2,12 +2,12 @@ package persistance;
 
 import java.util.Collection;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 
-import classes.ProcesoParticipativo;
+import entities.ProcesoParticipativo;
 
-@Remote
-public interface SingletonGestorProcesosParticipativosRemote {
+@Local
+public interface SingletonGestorProcesosParticipativosLocal {
     public void addProcesoParticipativo(ProcesoParticipativo procesoParticipativo);
     public ProcesoParticipativo getProcesoParticipativo(String nombre);
     public Collection<ProcesoParticipativo> listProcesosParticipativos();

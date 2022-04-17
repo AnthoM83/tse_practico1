@@ -29,6 +29,13 @@
     <description>This is the EJB POM file</description>
 
     <dependencies>
+    
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>practico1-data</artifactId>
+            <type>ejb</type>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- Import the CDI API, we use provided scope as the API is included in WildFly / JBoss EAP -->
         <dependency>

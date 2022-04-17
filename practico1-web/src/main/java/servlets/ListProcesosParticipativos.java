@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import classes.ProcesoParticipativo;
+import datatypes.dtProcesoParticipativo;
 
 @WebServlet("/ListProcesosParticipativos")
 public class ListProcesosParticipativos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
-	beans.EJBGestorProcesosParticipativosRemote gestorDeProcesosParticipativos;
+	beans.EJBGestorProcesosParticipativosLocal gestorDeProcesosParticipativos;
        
     public ListProcesosParticipativos() {
         super();
@@ -33,10 +33,10 @@ public class ListProcesosParticipativos extends HttpServlet {
 	}
 	
 	private void listProcesosParticipativos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<ProcesoParticipativo> listP = new ArrayList<>(gestorDeProcesosParticipativos.listProcesosParticipativos());
+		ArrayList<dtProcesoParticipativo> listDtpp = new ArrayList<>(gestorDeProcesosParticipativos.listProcesosParticipativos());
 		List<String> listStr = new ArrayList<>();
-		for (ProcesoParticipativo p : listP) {
-			listStr.add(p.getNombre());
+		for (dtProcesoParticipativo dtpp : listDtpp) {
+			listStr.add(dtpp.getNombre());
 		}
 		
 		request.setAttribute("listNames", listStr);

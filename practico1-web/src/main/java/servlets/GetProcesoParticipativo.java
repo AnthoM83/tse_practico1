@@ -1,8 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.time.LocalDate;
-
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,13 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import classes.ProcesoParticipativo;
+import datatypes.dtProcesoParticipativo;
 
 @WebServlet("/GetProcesoParticipativo")
 public class GetProcesoParticipativo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
-	beans.EJBGestorProcesosParticipativosRemote gestorDeProcesosParticipativos;
+	beans.EJBGestorProcesosParticipativosLocal gestorDeProcesosParticipativos;
 	
     public GetProcesoParticipativo() {
         super();
@@ -33,13 +31,12 @@ public class GetProcesoParticipativo extends HttpServlet {
 	
 	private void getProcesoParticipativo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("search-1");
-		ProcesoParticipativo proceso = gestorDeProcesosParticipativos.getProcesoParticipativo(name);
-		if (proceso != null) {
-			request.setAttribute("pNombre", proceso.getNombre());
-			request.setAttribute("pId", proceso.getId());
-			request.setAttribute("pFechaInicio", proceso.getFechaInicio().toString());
-			request.setAttribute("pFechaFin", proceso.getFechaFin().toString());
-			request.setAttribute("pEstado", proceso.getEstado().toString());
+		dtProcesoParticipativo dtpp = gestorDeProcesosParticipativos.getProcesoParticipativo(name);
+		if (dtpp != null) {
+			request.setAttribute("pNombre", dtpp.getNombre());
+			request.setAttribute("pFechaInicio", dtpp.getFechaInicio().toString());
+			request.setAttribute("pFechaFin", dtpp.getFechaFin().toString());
+			request.setAttribute("pEstado", dtpp.getEstado().toString());
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("/ConsultaProcesoParticipativo.jsp");
         rd.forward(request, response);

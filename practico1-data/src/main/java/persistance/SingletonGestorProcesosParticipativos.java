@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
-import classes.EstadoProceso;
-import classes.ProcesoParticipativo;
+import entities.EstadoProceso;
+import entities.ProcesoParticipativo;
 
 @Startup
 @Singleton
@@ -47,6 +48,8 @@ public class SingletonGestorProcesosParticipativos implements SingletonGestorPro
     }
     
     public void addProcesoParticipativo(ProcesoParticipativo procesoParticipativo) {
+    	Integer randomNum = ThreadLocalRandom.current().nextInt(10000, 99999);
+    	procesoParticipativo.setId("PP" + randomNum.toString());
     	procesosParticipativos.put(procesoParticipativo.getNombre(), procesoParticipativo);
     }
     
@@ -58,6 +61,4 @@ public class SingletonGestorProcesosParticipativos implements SingletonGestorPro
     	return new ArrayList<ProcesoParticipativo>(procesosParticipativos.values());
     }
     
- 
-
 }

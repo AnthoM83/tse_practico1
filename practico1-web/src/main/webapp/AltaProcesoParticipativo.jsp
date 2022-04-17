@@ -22,7 +22,7 @@
 		</div>
 		<div data-role="content">
 		
-		<h3>${err}</h3>
+		<h3>${msg}</h3>
 
 			<form name="ProcesoParticipativoData" id="form-1" action="AddProcesoParticipativo" method="post">
 				<label for="text-1">Nombre:</label>

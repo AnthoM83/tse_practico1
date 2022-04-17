@@ -22,7 +22,6 @@
 		<c:choose>
 		<c:when test="${not empty pNombre }">
 				<h2>Nombre: ${pNombre}</h2>
-				<h2>Id: ${pId }</h2>
 		<h2>Fecha Inicio: ${pFechaInicio}</h2>
 		<h2>Fecha Fin: ${pFechaFin}</h2>
 		<h2>Estado: ${pEstado}</h2>

@@ -30,6 +30,7 @@
         <module>practico1-ejb</module>
         <module>practico1-web</module>
         <module>practico1-ear</module>
+        <module>practico1-data</module>
     </modules>
 
     <properties>
@@ -90,7 +91,12 @@
 
     <dependencyManagement>
         <dependencies>
-
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>practico1-data</artifactId>
+                <version>${project.version}</version>
+                <type>ejb</type>
+            </dependency>
             <!-- Define the version of the EJB jar so that we don't need
                 to repeat ourselves in every module -->
             <dependency>

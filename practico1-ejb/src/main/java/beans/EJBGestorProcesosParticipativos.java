@@ -1,13 +1,14 @@
 package beans;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.ThreadLocalRandom;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import classes.EstadoProceso;
-import classes.ProcesoParticipativo;
+import datatypes.dtEstadoProceso;
+import datatypes.dtProcesoParticipativo;
+import entities.EstadoProceso;
+import entities.ProcesoParticipativo;
 import exceptions.ExistingEntityException;
 import persistance.SingletonGestorProcesosParticipativosLocal;
 
@@ -18,22 +19,40 @@ public class EJBGestorProcesosParticipativos implements EJBGestorProcesosPartici
 
     public EJBGestorProcesosParticipativos() {}
     
-    public void addProcesoParticipativo(ProcesoParticipativo procesoParticipativo) throws ExistingEntityException {
-    	procesoParticipativo.setEstado(EstadoProceso.EN_ESPERA);
-    	Integer randomNum = ThreadLocalRandom.current().nextInt(10000, 99999);
-    	procesoParticipativo.setId("PP" + randomNum.toString());
-    	if (singletonGestorDeProcesosParticipativos.getProcesoParticipativo(procesoParticipativo.getNombre()) == null)
-    		singletonGestorDeProcesosParticipativos.addProcesoParticipativo(procesoParticipativo);
+    public void addProcesoParticipativo(dtProcesoParticipativo dtpp) throws ExistingEntityException {
+    	ProcesoParticipativo proceso = new ProcesoParticipativo();
+    	proceso.setNombre(dtpp.getNombre());
+    	proceso.setFechaInicio(dtpp.getFechaInicio());
+    	proceso.setFechaFin(dtpp.getFechaFin());
+    	proceso.setEstado(EstadoProceso.EN_ESPERA);
+    	if (singletonGestorDeProcesosParticipativos.getProcesoParticipativo(proceso.getNombre()) == null)
+    		singletonGestorDeProcesosParticipativos.addProcesoParticipativo(proceso);
     	else
     		throw new ExistingEntityException("Ya existe un proceso participativo con ese nombre.");
     }
     
-    public ProcesoParticipativo getProcesoParticipativo(String nombre) {
-    	return singletonGestorDeProcesosParticipativos.getProcesoParticipativo(nombre);
+    public dtProcesoParticipativo getProcesoParticipativo(String nombre) {
+    	ProcesoParticipativo proceso = singletonGestorDeProcesosParticipativos.getProcesoParticipativo(nombre);
+    	dtProcesoParticipativo dtpp = new dtProcesoParticipativo();
+    	dtpp.setNombre(proceso.getNombre());
+    	dtpp.setFechaInicio(proceso.getFechaInicio());
+    	dtpp.setFechaFin(proceso.getFechaFin());
+    	dtpp.setEstado(dtEstadoProceso.fromValue(proceso.getEstado().toString()));
+    	return dtpp;
     }
     
-    public Collection<ProcesoParticipativo> listProcesosParticipativos() {
-    	return singletonGestorDeProcesosParticipativos.listProcesosParticipativos();
+    public Collection<dtProcesoParticipativo> listProcesosParticipativos() {
+    	ArrayList<ProcesoParticipativo> listProcesos = new ArrayList<>(singletonGestorDeProcesosParticipativos.listProcesosParticipativos());
+    	ArrayList<dtProcesoParticipativo> listDtpp = new ArrayList<>();
+    	for (ProcesoParticipativo proceso : listProcesos) {
+    		dtProcesoParticipativo dtpp = new dtProcesoParticipativo();
+        	dtpp.setNombre(proceso.getNombre());
+        	dtpp.setFechaInicio(proceso.getFechaInicio());
+        	dtpp.setFechaFin(proceso.getFechaFin());
+        	dtpp.setEstado(dtEstadoProceso.fromValue(proceso.getEstado().toString()));
+    		listDtpp.add(dtpp);
+    	}
+        return listDtpp;
     }
 
 }

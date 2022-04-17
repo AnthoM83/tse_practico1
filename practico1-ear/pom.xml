@@ -29,6 +29,13 @@
     <description>This is the EAR POM file</description>
 
     <dependencies>
+        
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>practico1-data</artifactId>
+            <type>ejb</type>
+        </dependency>
+        
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>practico1-ejb</artifactId>
