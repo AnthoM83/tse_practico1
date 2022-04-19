@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>tecnoinf.tse.g15.anthonymallada</groupId>
+  <artifactId>practico1-client</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>practico1 - client</name>
+  
+      <dependencies>
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-ejb-client-bom</artifactId>
+            <type>pom</type>
+            <version>26.0.1.Final</version>
+        </dependency>
+        
+        <!-- Dependency on the EJB module so we can use it's services if needed -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>practico1-ejb</artifactId>
+            <type>ejb</type>
+            <scope>provided</scope>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+                
+    </dependencies>
+</project>

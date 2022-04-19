@@ -31,6 +31,7 @@
         <module>practico1-web</module>
         <module>practico1-ear</module>
         <module>practico1-data</module>
+        <module>practico1-client</module>
     </modules>
 
     <properties>
